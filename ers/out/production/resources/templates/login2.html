@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>登录</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--<link href="${ctx}/css/login.css" rel="stylesheet">-->
+    <!--<link rel="stylesheet" href="https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css">-->
+    <!--<script src="https://cdn.bootcss.com/three.js/r83/three.min.js"></script>-->
+    <th:block th:replace="~{common::header}"></th:block>
+    <script type="text/javascript" th:src="@{/js/login/login.js}"></script>
+    <script type="text/javascript" th:src="@{/js/md5.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/login2.css}">
+</head>
+
+<body class="login">
+<div class="login_m">
+    <div class="login_logo"><img th:src="@{/img/logo2.png}" ></div>
+    <div class="login_boder layui-anim layui-anim-scaleSpring">
+            <div class="layui-row login_title"><h2>用户登录</h2></div>
+            <form class="layui-form" action="#" method="post">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="name" lay-verify="username" placeholder="请输入用户名"
+                               autocomplete="off" class="my_input layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码：</label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="password" lay-verify="password" placeholder="请输入密码"
+                               autocomplete="off" class="my_input layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux"></div>
+                </div>
+                <hr>
+                <div class="layui-form-item">
+                    <!--<label class="layui-form-label"></label>-->
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-radius bt_login layui-col-xs4" lay-filter="login"  lay-submit>登录</button>
+                        <button id="register" type="button" class="layui-btn layui-btn-radius bt_login layui-col-xs4">注册
+                        </button>
+                    </div>
+                </div>
+            </form>
+    </div><!--login_boder end-->
+</div><!--login_m end-->
+</body>
+<script type="text/javascript">
+    if(window !=top){
+        top.location.href=location.href
+    }
+</script>
+</html>

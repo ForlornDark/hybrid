@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    username: lfm
+    password: 19960515
+    url: jdbc:mysql://127.0.0.1:3306/ers?useSSL=false&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver

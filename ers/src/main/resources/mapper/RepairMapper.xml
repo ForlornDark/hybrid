@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lfm.ers.mapper.RepairMapper" >
+  <resultMap id="BaseResultMap" type="com.lfm.ers.entity.Repair" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="apply_id" property="applyId" jdbcType="INTEGER" />
+    <result column="repairman_id" property="repairmanId" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="cost" property="cost" jdbcType="INTEGER" />
+    <result column="repair_note" property="repairNote" jdbcType="VARCHAR" />
+    <result column="evaluate_mark" property="evaluateMark" jdbcType="INTEGER" />
+    <result column="repair_time" property="repairTime" jdbcType="TIMESTAMP" />
+    <result column="evaluate_note" property="evaluateNote" jdbcType="VARCHAR" />
+    <result column="evaluate_time" property="evaluateTime" jdbcType="TIMESTAMP" />
+    <result column="accept_time" property="acceptTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <!--//    su2.full_name full_name2,su2.phone phone2,de2.`name` depart_name2 ,re.accept_time,re.repair_time,re.repair_note,re.evaluate_time,-->
+  <!--//    re.evaluate_mark,re.evaluate_note ,ap.id,ap.state,ap.create_time,-->
+  <!--//    ap.fault_descrip,ap.expect_time, ap.detail_address,su.full_name,su.phone,de.`name` depart_name,-->
+  <!--//    fi.`name` info_name,et.`name` equip_name-->
+  <resultMap id="RepairVo" type="com.lfm.ers.vo.RepairVo">
+    <result column="id" property="id"/>
+    <result column="state" property="state"/>
+    <result column="create_time" property="createTime"/>
+    <result column="fault_descrip" property="faultDescrip"/>
+    <result column="expect_time" property="expectTime"/>
+    <result column="detail_address" property="detailAddress"/>
+    <result column="full_name" property="fullName"/>
+    <result column="phone" property="phone"/>
+    <result column="info_name" property="infoName"/>
+    <result column="equip_name" property="equipName"/>
+    <result column="depart_name" property="departName"/>
+    <result column="full_name2" property="fullName2"/>
+    <result column="phone2" property="phone2"/>
+    <result column="depart_name2" property="departName2"/>
+    <result column="accept_time" property="acceptTime"/>
+    <result column="repair_time" property="repairTime"/>
+    <result column="repair_note" property="repairNote"/>
+    <result column="evaluate_time" property="evaluateTime"/>
+    <result column="evaluate_mark" property="evaluateMark"/>
+    <result column="evaluate_note" property="evaluateNote"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, apply_id, repairman_id, state, cost, repair_note, evaluate_mark, repair_time, 
+    evaluate_note, evaluate_time, accept_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from repair
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from repair
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lfm.ers.entity.Repair" >
+    insert into repair (id, apply_id, repairman_id, 
+      state, cost, repair_note, 
+      evaluate_mark, repair_time, evaluate_note, 
+      evaluate_time, accept_time)
+    values (#{id,jdbcType=INTEGER}, #{applyId,jdbcType=INTEGER}, #{repairmanId,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{cost,jdbcType=INTEGER}, #{repairNote,jdbcType=VARCHAR}, 
+      #{evaluateMark,jdbcType=INTEGER}, #{repairTime,jdbcType=TIMESTAMP}, #{evaluateNote,jdbcType=VARCHAR}, 
+      #{evaluateTime,jdbcType=TIMESTAMP}, #{acceptTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lfm.ers.entity.Repair" >
+    insert into repair
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="applyId != null" >
+        apply_id,
+      </if>
+      <if test="repairmanId != null" >
+        repairman_id,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="repairNote != null" >
+        repair_note,
+      </if>
+      <if test="evaluateMark != null" >
+        evaluate_mark,
+      </if>
+      <if test="repairTime != null" >
+        repair_time,
+      </if>
+      <if test="evaluateNote != null" >
+        evaluate_note,
+      </if>
+      <if test="evaluateTime != null" >
+        evaluate_time,
+      </if>
+      <if test="acceptTime != null" >
+        accept_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="applyId != null" >
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="repairmanId != null" >
+        #{repairmanId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=INTEGER},
+      </if>
+      <if test="repairNote != null" >
+        #{repairNote,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateMark != null" >
+        #{evaluateMark,jdbcType=INTEGER},
+      </if>
+      <if test="repairTime != null" >
+        #{repairTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluateNote != null" >
+        #{evaluateNote,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null" >
+        #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acceptTime != null" >
+        #{acceptTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lfm.ers.entity.Repair" >
+    update repair
+    <set >
+      <if test="applyId != null" >
+        apply_id = #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="repairmanId != null" >
+        repairman_id = #{repairmanId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=INTEGER},
+      </if>
+      <if test="repairNote != null" >
+        repair_note = #{repairNote,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateMark != null" >
+        evaluate_mark = #{evaluateMark,jdbcType=INTEGER},
+      </if>
+      <if test="repairTime != null" >
+        repair_time = #{repairTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluateNote != null" >
+        evaluate_note = #{evaluateNote,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null" >
+        evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acceptTime != null" >
+        accept_time = #{acceptTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lfm.ers.entity.Repair" >
+    update repair
+    set apply_id = #{applyId,jdbcType=INTEGER},
+      repairman_id = #{repairmanId,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      cost = #{cost,jdbcType=INTEGER},
+      repair_note = #{repairNote,jdbcType=VARCHAR},
+      evaluate_mark = #{evaluateMark,jdbcType=INTEGER},
+      repair_time = #{repairTime,jdbcType=TIMESTAMP},
+      evaluate_note = #{evaluateNote,jdbcType=VARCHAR},
+      evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      accept_time = #{acceptTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByApplyId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from repair where apply_id = #{applyId}
+  </select>
+
+  <select id="selectByAIDAndRID" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from repair where apply_id = #{applyId} and repairman_id = #{repairmanId}
+  </select>
+
+  <select id="selectDetailByRoleRepair" resultMap="RepairVo" >
+    select  re.accept_time,re.repair_time,re.repair_note,re.evaluate_time,
+	  re.evaluate_mark,re.evaluate_note ,ap.id,ap.state,ap.create_time,
+	  ap.fault_descrip,ap.expect_time, ap.detail_address,su.full_name,su.phone,de.`name` depart_name,
+	  fi.`name` info_name,et.`name` equip_name
+    from `repair` re
+    join apply ap on re.apply_id = ap.id
+    join sys_user su on ap.user_id = su.id
+    left join depart de on su.depart_id = de.id
+    join fault_info fi on fi.id = ap.faut_id
+    join equip_type et on et.id = fi.equip_id
+    where re.repairman_id = #{repairmanId}
+    order by ap.create_time desc;
+  </select>
+  <select id="selectDetailByRoleUser" resultMap="RepairVo" >
+    select  su2.full_name full_name2,su2.phone phone2,de2.`name` depart_name2 ,re.accept_time,re.repair_time,re.repair_note,re.evaluate_time,
+	    re.evaluate_mark,re.evaluate_note ,ap.id,ap.state,ap.create_time,
+	    ap.fault_descrip,ap.expect_time, ap.detail_address,
+	    fi.`name` info_name,et.`name` equip_name
+    from `repair` re
+    join sys_user su2 on re.repairman_id = su2.id
+    left join depart de2 on de2.id = su2.depart_id
+    join apply ap on re.apply_id = ap.id
+    join fault_info fi on fi.id = ap.faut_id
+    join equip_type et on et.id = fi.equip_id
+    where ap.user_id = #{userId}
+    order by ap.create_time desc;
+  </select>
+  <select id="selectDetailByUID" resultMap="RepairVo">
+    select  su2.full_name full_name2,su2.phone phone2,de2.`name` depart_name2 ,re.accept_time,re.repair_time,re.repair_note,re.evaluate_time,
+	  re.evaluate_mark,re.evaluate_note ,ap.id,ap.state,ap.create_time,
+	  ap.fault_descrip,ap.expect_time, ap.detail_address,su.full_name,su.phone,de.`name` depart_name,
+	  fi.`name` info_name,et.`name` equip_name
+    from `repair` re
+    join sys_user su2 on re.repairman_id = su2.id
+    left join depart de2 on de2.id = su2.depart_id
+    join apply ap on re.apply_id = ap.id
+    join sys_user su on ap.user_id = su.id
+    left join depart de on su.depart_id = de.id
+    join fault_info fi on fi.id = ap.faut_id
+    join equip_type et on et.id = fi.equip_id
+    <if test="userId != null">
+      <choose>
+        <when test="type == 2">
+          where re.repairman_id = #{userId}
+        </when>
+        <when test="type == 3">
+          where ap.user_id = #{userId}
+        </when>
+      </choose>
+    </if>
+    order by case when ap.state = 2 then 3 end,ap.id desc
+  </select>
+
+  <select id="selectDetailByAID" resultMap="RepairVo">
+    select  su2.full_name full_name2,su2.phone phone2,de2.`name` depart_name2 ,re.accept_time,re.repair_time,re.repair_note,re.evaluate_time,
+    re.evaluate_mark,re.evaluate_note ,ap.id,ap.state,ap.create_time,
+    ap.fault_descrip,ap.expect_time, ap.detail_address,su.full_name,su.phone,de.`name` depart_name,
+    fi.`name` info_name,et.`name` equip_name
+    from `repair` re
+    join sys_user su2 on re.repairman_id = su2.id
+    left join depart de2 on de2.id = su2.depart_id
+    join apply ap on re.apply_id = ap.id
+    join sys_user su on ap.user_id = su.id
+    left join depart de on su.depart_id = de.id
+    join fault_info fi on fi.id = ap.faut_id
+    join equip_type et on et.id = fi.equip_id
+    where ap.id =  #{id}
+    <choose >
+      <when test="type == 2">
+        and re.repairman_id = #{userId}
+      </when>
+      <when test="type == 3">
+        and ap.user_id = #{userId}
+      </when>
+    </choose>
+  </select>
+
+    <select id="countByRID" resultType="com.lfm.ers.vo.Value">
+      select su.`name`, COUNT( * ) `value`
+      from `repair` re
+	  join sys_user su on re.repairman_id = su.id
+	  join apply ap on re.apply_id = ap.id
+	  where ap.state  = 3 and re.repair_time &gt; #{start}
+      group by re.repairman_id
+      order by `value` desc
+      limit 0,5
+    </select>
+
+  <select id="avgMarkOrder" resultType="com.lfm.ers.vo.Value">
+    select su.`name`,AVG(re.evaluate_mark) `value`
+    from  `repair` re
+    join sys_user su on  re.repairman_id = su.id
+    group by su.id
+    order by `value`
+    desc limit 0,5
+  </select>
+</mapper>

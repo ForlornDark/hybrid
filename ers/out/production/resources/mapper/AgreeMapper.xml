@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lfm.ers.mapper.AgreeMapper" >
+  <resultMap id="BaseResultMap" type="com.lfm.ers.entity.Agree" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="comment_id" property="commentId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="result" property="result" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, comment_id, user_id, result
+  </sql>
+  <select id="selectByCommentIdAndUserId" resultMap="BaseResultMap">
+    select
+      *
+    from agree a
+    where a.comment_id = #{commentId} and a.user_id = #{userId}
+  </select>
+</mapper>

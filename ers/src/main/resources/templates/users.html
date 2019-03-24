@@ -1,0 +1,50 @@
+<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <th:block th:replace="~{common::header}"></th:block>
+    <script type="text/javascript" th:src="@{/js/users.js}" src="${ctx}/js/users.js"></script>
+    <style rel="stylesheet">
+        .layui-body{overflow-y: scroll;}
+        .layui-table-cell .layui-form-checkbox[lay-skin="primary"]{
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body class="layui-layout-body">
+
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-radius layui-btn-normal" id="add">
+                    <i class="layui-icon">&#xe654;</i>
+                </button>
+
+                <button class="layui-btn layui-btn-radius layui-btn-warm" id="del">
+                    <i class="layui-icon">&#xe640;</i>
+                </button>
+
+            </div>
+            <div class="layui-inline">
+                <input class="layui-input" name="id" id="search" placeholder="搜索" autocomplete="off">
+            </div>
+            <table class="layui-hide" id="table" lay-filter="operate" />
+        </div>
+    </div>
+    <script type="text/html" id="rowTool">
+        <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    </script>
+</div>
+</body>
+</html>
+

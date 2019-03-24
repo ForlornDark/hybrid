@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    username: lfm
+    password: 19960515
+    url: jdbc:mysql://127.0.0.1:3306/ers?useSSL=false&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+  kafka:
+    bootstrap-servers:
+      - 192.168.100.9:9092
+    consumer:
+      group-id: test
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+constants:
+  upload_dir: D:/temp/upload
+  test: 123

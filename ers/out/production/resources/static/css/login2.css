@@ -1,0 +1,32 @@
+@charset "utf-8";
+/*------------// Overall //------------------*/
+body.login{ background:url(../img/login_bgx.gif);}
+/*--login--*/
+.login_m{ width:403px; margin:0 auto; height:375px; margin-top:98px; /*position: absolute;left:50%;top:50%;margin-left:-202px;margin-top:-188px;*/}
+.login_logo{ text-align:center; margin-bottom:25px;}
+.login_boder{ background-color: #ffffff;
+    overflow:hidden;
+    padding: 20px 10px;
+    color: #4f5d80;
+}
+.login_title{
+    height: 50px;
+    text-align: center;
+}
+.bt_login{
+    background: transparent;
+    border: 2px solid #4FA1D9;
+    color: #4FA1D9;
+}
+.my_input{
+    background-color: transparent;
+}
+.my_input:focus{
+    border:2px #4FA1D9 solid!important;
+    box-shadow: 0 0 15px #03a9f4;
+}
+button:hover{
+    background: #4FA1D9;
+    color: white;
+}
+

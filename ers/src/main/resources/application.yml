@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  thymeleaf:
+    cache: false
+#  redis:
+#    sentinel:
+#      master: mymaster
+#      nodes:
+#        - 192.168.0.37:26379
+#        - 192.168.0.37:26380
+#        - 192.168.0.37:26381
+logging:
+  config: classpath:logback-spring.xml
+server:
+  port: 8081
+#pagehelper:
+#  offsetAsPageNum: true
+#  rowBoundsWithCount: true
+#  pageSizeZero: true
+#  reasonable: true
+mybatis-plus:
+  type-aliases-package: com.lfm.ers.entity
+  mapper-locations: classpath:/mapper/*.xml
+  config-location: classpath:mybatis.xml
