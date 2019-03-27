@@ -36,10 +36,10 @@ public class RemoteSelector implements Runnable {
     }
 
 
-    public void listenRemoteChannel(SocketChannel remoteChannal, ChannelBridge channalBridge) {
+    public void listenRemoteChannel(SocketChannel channel, ChannelBridge channelBridge) {
         try {
-            remoteChannal.register(selectorRemote, SelectionKey.OP_READ, channalBridge);
-            channalBridge.setRemoteSelectionKey(remoteChannal.keyFor(selectorRemote));
+            channel.register(selectorRemote, SelectionKey.OP_READ, channelBridge);
+            channelBridge.setRemoteSelectionKey(channel.keyFor(selectorRemote));
         } catch (ClosedChannelException e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class RemoteSelector implements Runnable {
                     logger.info("注册remoteChannel到remoteSelector。remoteChannel: " + waitRegisterBridge.getRemoteChannal().getRemoteAddress());
                     this.listenRemoteChannel(waitRegisterBridge.getRemoteChannal(), waitRegisterBridge);
                 }
-                //循环selctor
+                //循环select
                 int numKey = selectorRemote.select();
                 if (numKey > 0) {
                     Set<SelectionKey> keys = selectorRemote.selectedKeys();

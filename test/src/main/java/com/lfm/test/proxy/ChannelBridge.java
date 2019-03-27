@@ -39,10 +39,9 @@ public class ChannelBridge {
             try {
                 numRead = localChannel.read(local2RemoteBuff);
             } catch (IOException e) {
-                //todo:应该是出现了"你的主机中的软件中止了一个已建立的连接。"的异常  研究为什么会出现这个问题
-                //一篇博文：https://blog.csdn.net/abc_key/article/details/29295569
-                logger.warn("selector通知localChannel可读，但在读的过程中抛出异常。大概率异常信息为：“你的主机中的软件中止了一个已建立的连接。”。可以认为是这个localChannel出现异常，下面关闭这个localChannel。");
-                logger.warn("异常信息: " + e.getMessage() + "  是不是上面说的？");
+//                logger.warn("selector通知localChannel可读，但在读的过程中抛出异常。大概率异常信息为：“你的主机中的软件中止了一个已建立的连接。”。可以认为是这个localChannel出现异常，下面关闭这个localChannel。");
+//                logger.warn("异常信息: " + e.getMessage() + "  是不是上面说的？");
+                logger.info("read失败"+e.getMessage());
                 localSelectionKey.cancel();
                 localChannel.close();
             }
@@ -70,7 +69,6 @@ public class ChannelBridge {
         //如果是request line 例如： GET http://detectportal.firefox.com/success.txt HTTP/1.1
         if (Pattern.matches(".* .* HTTP.*", line)) {
             logger.info("请求—— " + line);
-
             String[] requestLineCells = line.split(" ");
             String method = requestLineCells[0];
             String urlstr = requestLineCells[1];
@@ -129,10 +127,6 @@ public class ChannelBridge {
         this.host = host;
         this.port = port;
         try {
-            if(host.contains("google")||host.contains("youtube")||host.contains("ofacebook")){
-                logger.warn("不处理墙外网站: "+host);
-                throw new Exception("墙外网站，不进行处理——抛出异常已回复浏览器404");
-            }
             //设置连接超时时间1s
             remoteChannel=SocketChannel.open();
             remoteChannel.socket().connect(new InetSocketAddress(host, port),5000);
@@ -256,8 +250,6 @@ public class ChannelBridge {
             try {
                 readNum = remoteChannel.read(remote2LocalBuff);
             } catch (IOException e) {
-                //todo:应该是出现了"远程主机强迫关闭了一个现有的连接。"的异常 研究为什么会出现这个问题
-                //一篇博文：https://blog.csdn.net/abc_key/article/details/29295569
                 logger.warn("selector通知remoteChannel可读，但在读的过程中抛出异常。大概率异常信息为：“远程主机强迫关闭了一个现有的连接。”。可以认为是这个remoteChannel出现异常，下面关闭这个remoteChannel。");
                 logger.warn("异常信息: " + e.getMessage() + "  是不是上面说的？");
                 remoteSelectionKey.cancel();
@@ -271,14 +263,15 @@ public class ChannelBridge {
 //                System.out.println(new String(remote2LocalBuff.array()));
                 try {
                     while (remote2LocalBuff.hasRemaining()) {
-                        int writeNum = localChannel.write(remote2LocalBuff);
-                        if (writeNum == 0) {
-                            try {
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
+//                        int writeNum =
+                                localChannel.write(remote2LocalBuff);
+//                        if (writeNum == 0) {
+//                            try {
+//                                Thread.sleep(100);
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
                     }
                 } catch (ClosedChannelException e) {
                     logger.warn("过期的响应，本地channel已经关闭。清理过期的远程channel");

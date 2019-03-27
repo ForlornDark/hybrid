@@ -24,7 +24,7 @@ public class HttpProxyBootStrap {
 
 
         RemoteSelector remoteSelector=RemoteSelector.getInstance();
-        Thread remoteSelectorThread=new Thread(remoteSelector,"remoteSlector");
+        Thread remoteSelectorThread=new Thread(remoteSelector,"remoteSelector");
         remoteSelectorThread.start();
 
 

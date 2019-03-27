@@ -28,6 +28,7 @@ public class LocalSelector implements Runnable {
 
     //可靠的获取非回环本机ip方法
     private InetAddress getLocalhost() throws UnknownHostException {
+        InetAddress localHost = InetAddress.getLocalHost();
         try {
             for (Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces(); interfaces.hasMoreElements();) {
                 NetworkInterface networkInterface = interfaces.nextElement();
@@ -35,34 +36,29 @@ public class LocalSelector implements Runnable {
                     continue;
                 }
                 Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
-                if (addresses.hasMoreElements()) {
-                    InetAddress address = addresses.nextElement();
-                    if(address instanceof Inet4Address) {
-                        return address;
+                while (addresses.hasMoreElements() ){
+                    InetAddress next = addresses.nextElement();
+                    if (!next.isLinkLocalAddress() && !next.isLoopbackAddress() && next.isSiteLocalAddress()){
+                        localHost = next;
                     }
                 }
             }
         } catch (SocketException e) {
             logger.debug("Error when getting host ip address: <{}>.", e.getMessage());
         }
-        return InetAddress.getLocalHost();
+        return localHost;
     }
 
-    public void init(){
-        init(8081);
-    }
 
     public void init(int port){
         try {
             this.selectorLocal = Selector.open();
             acceptChannel = ServerSocketChannel.open();
-
-            InetAddress serverAddress=getLocalhost();
-
-            acceptChannel.bind(new InetSocketAddress(serverAddress, port));
+            InetSocketAddress inetSocketAddress = new InetSocketAddress(port);
+            acceptChannel.bind(inetSocketAddress);
             acceptChannel.configureBlocking(false);
             acceptChannel.register(selectorLocal, SelectionKey.OP_ACCEPT);
-            logger.info("在"+serverAddress.getHostAddress()+":"+port+"端口启动了代理服务。注意可能非127.0.0.1");
+            logger.info("在"+inetSocketAddress.getAddress().getHostAddress()+":"+port+"端口启动了代理服务。");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,7 +66,7 @@ public class LocalSelector implements Runnable {
 
     public void listen() {
         while (true) {
-            //循环selctor
+            //循环select
             try {
                 int numKey = selectorLocal.select();
                 if (numKey > 0) {
@@ -80,8 +76,8 @@ public class LocalSelector implements Runnable {
                         SelectionKey key = keyIterator.next();
                         try{
                             if (key.isReadable()) {//读来自浏览器的请求
-                                ChannelBridge channalBridge = (ChannelBridge) key.attachment();
-                                channalBridge.readLocal();
+                                ChannelBridge channelBridge = (ChannelBridge) key.attachment();
+                                channelBridge.readLocal();
                             }else if (key.isAcceptable()) {//proxyChannel接收来自浏览器的连接
                                 accept();
                             }
@@ -104,8 +100,8 @@ public class LocalSelector implements Runnable {
             SocketChannel localChanel = acceptChannel.accept();
             localChanel.configureBlocking(false);
             logger.info("接收浏览器连接: " + localChanel.getRemoteAddress());
-            ChannelBridge channalBridge = new ChannelBridge(localChanel);
-            this.listenLocalChannel(localChanel, channalBridge);
+            ChannelBridge channelBridge = new ChannelBridge(localChanel);
+            this.listenLocalChannel(localChanel, channelBridge);
         } catch (IOException e) {
             e.printStackTrace();
         }

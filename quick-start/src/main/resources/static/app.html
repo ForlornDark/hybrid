@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <style>
+
+        body{
+            background-color: aquamarine;
+            letter-spacing: .1rem;
+            padding: 2px;
+        }
+        .card{
+            background-color: #fff;
+            padding: 5px;
+            border-radius: .25rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .card .title{
+            border-left: aquamarine 2px solid;
+            padding-left: 10px;
+            display: block;
+            margin: 2px;
+        }
+
+        .nav{
+            display: -webkit-box;
+            overflow-x: scroll;
+            -webkit-overflow-scrolling:touch;
+        }
+        .nav::-webkit-scrollbar {
+            display: none;
+        }
+        .nav-item{
+            padding: .5rem 1rem;
+        }
+        .active{
+            border-bottom: aquamarine 2px solid;
+            margin-bottom: -1px;
+        }
+
+        .hide{
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="card">
+        <h5 class="title">伏福病数据（mm）</h5>
+        <div class="content">
+            <div class="nav">
+                <div class="nav-item"  v-for="(item,index) in list" @click="doSon(index)" :class="{active:item.active}">{{item.name}}</div>
+            </div>
+
+        </div>
+        <div class="nav-content">
+            <div v-for="(item,index) in list" :class="{hide:!item.active}" :id="index">chart{{index}}
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 20px">
+        <h5 class="title">伏福病数据2（mm）</h5>
+        <div class="content">
+            <div class="nav">
+                <div class="nav-item"  v-for="(item,index) in list2" @click="doSon2(index)" :class="{active:item.active}">{{item.name}}</div>
+            </div>
+
+        </div>
+        <div class="nav-content">
+            <div v-for="(item,index) in list2" :class="{hide:!item.active}" :id="index">chart{{index}}
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+<!-- 生产环境版本，优化了尺寸和速度 -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            list: [{name:"我曹",active:true},
+                {name:"fsad",active:false},
+                {name:"烦死哒",active:false},
+                {name:"12",active:false},
+                {name:"fsa",active:false},
+                {name:"烦死哒",active:false},
+                {name:"烦死哒",active:false}],
+            list2: [{name:"我曹",active:true},
+                {name:"fsad",active:false},
+                {name:"烦死哒",active:false},
+                {name:"12",active:false},
+                {name:"fsa",active:false},
+                {name:"烦死哒",active:false},
+                {name:"烦死哒",active:false}]
+        },
+        methods:{
+            doSon:function (index) {
+                var list = this.list;
+                for (i in this.list){
+                    if (i == index){
+                        list[i].active = true
+                    } else {
+                        list[i].active = false
+                    }
+                }
+            },
+            doSon2:function (index) {
+                var list = this.list2;
+                for (i in this.list2){
+                    if (i == index){
+                        list[i].active = true
+                    } else {
+                        list[i].active = false
+                    }
+                }
+            }
+
+        }
+    })
+</script>
+</html>
