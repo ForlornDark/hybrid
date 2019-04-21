@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class Client {
 
     private static Logger log = Logger.getLogger(Client.class.getSimpleName());
-
+    static boolean run = true;
 
     public static void main(String[] args){
         try {
@@ -25,15 +25,21 @@ public class Client {
             channel.register(selector, SelectionKey.OP_READ);
             new Thread(new MyRunnable(selector)).start();
             int i = 0;
-            while (i < 100){
+            String s = "";
+            while (run){
                 i++;
                 Scanner scanner = new Scanner(System.in);
-                String s = scanner.nextLine();
+                s = scanner.nextLine();
+                run = !s.equals("exit");
                 buffer.clear();
                 buffer.put(s.getBytes());
                 try {
-                    channel.write(buffer);
+                    buffer.flip();
+                    int write = channel.write(buffer);
+                    log.info("write:"+write);
                 } catch (IOException e) {
+                    channel.close();
+                    run = false;
                     e.printStackTrace();
                 }
             }
@@ -51,14 +57,13 @@ public class Client {
         }
         @Override
         public void run() {
-            while (true){
+            while (run){
                 try {
                     int select = selector.select();
                     if (select <  1){
                         log.info("..........");
                         continue;
                     }
-
                 Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
                 while (iterator.hasNext()){
                     SelectionKey next = iterator.next();
@@ -66,9 +71,12 @@ public class Client {
                         SocketChannel socketChannel = (SocketChannel) next.channel();
                         buffer.clear();
                         int read = socketChannel.read(buffer);
-                        buffer.flip();
                         if (read > 0){
-                            log.info("rec:"+read);
+                            log.info("rec:"+new String(buffer.array(),0,read));
+                        }else if (read ==0){
+                            buffer.clear();
+                        }else {
+                            run = false;
                         }
 
                     }

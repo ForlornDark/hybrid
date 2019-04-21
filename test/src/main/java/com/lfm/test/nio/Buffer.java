@@ -11,7 +11,6 @@ public class Buffer {
         ByteBuffer buffer = ByteBuffer.allocate(32);
         buffer.put("123".getBytes());
         log.info(String.valueOf(buffer.position()));
-        log.info(new String(buffer.array(),0,buffer.position()));
         buffer.flip();
         log.info(String.valueOf(buffer.position()));
     }

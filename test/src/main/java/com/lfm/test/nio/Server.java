@@ -38,21 +38,42 @@ public class Server {
                     while (iterator.hasNext()){
                         SelectionKey next = iterator.next();
                         if (next.isReadable()){
-                            log.info("read");
                             SocketChannel channel = (SocketChannel) next.channel();
-                            int read = channel.read(buffer);
-                            if (read > 0){
-                                buffer.flip();
-                                String str = new String(buffer.array());
-                                log.info("rec:"+read);
-                                send(str);
+                            log.info("read:"+next.attachment());
+                            if (channel != null ){
+                                if (channel.isConnected() && channel.isOpen()){
+                                    int read = 0;
+                                   try{
+                                      read = channel.read(buffer);
+                                      if (read > 0){
+                                          String str = new String(buffer.array(),0,read);
+                                          buffer.clear();
+                                          log.info("rec:"+str);
+                                          send(str);
+                                      }else if (read == 0){
+
+                                      }else {
+                                          channel.close();
+                                          next.cancel();
+                                      }
+
+                                    }catch (Exception e){
+                                        log.info("连接关闭");
+                                       channel.close();
+                                        next.cancel();
+                                    }
+
+                                }else {
+                                    next.cancel();
+                                    channel.finishConnect();
+                                }
                             }
                         }else if (next.isAcceptable()){
                             accept = serverSocketChannel.accept();
                             accept.configureBlocking(false);
-                            list.add(accept);
                             log.info("accept"+accept.getRemoteAddress().toString());
-                            accept.register(selector,SelectionKey.OP_READ);
+                            accept.register(selector,SelectionKey.OP_READ,"fuck");
+                            list.add(accept);
                         }else if (next.isConnectable()){
                             log.info("connect");
                         }else if (next.isWritable()){
@@ -72,6 +93,7 @@ public class Server {
     public static void send(String string){
         ByteBuffer buffer = ByteBuffer.allocate(32);
         buffer.put(string.getBytes());
+        buffer.flip();
         Iterator<SocketChannel> iterator = list.iterator();
         while (iterator.hasNext()){
             SocketChannel next = iterator.next();
@@ -81,7 +103,7 @@ public class Server {
                 } catch (IOException e) {
                     iterator.remove();
                     try {
-                        next.finishConnect();
+                        next.close();
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -89,7 +111,7 @@ public class Server {
                 }
             }else {
                 try {
-                    next.finishConnect();
+                    next.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
