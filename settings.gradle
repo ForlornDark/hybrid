@@ -6,4 +6,5 @@ rootProject.name = 'hybrid'
 include 'ers'
 include 'test'
 include 'quick-start'
+include 'swagger-starter'
 

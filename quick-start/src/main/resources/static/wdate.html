@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" id="name" @click="picking()"  v-model="name">
+    {{name}}
+    <br>
+    <input type="text" id="name2" @click="picking2()"  v-model="name2">
+    {{name2}}
+</div>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<!-- 生产环境版本，优化了尺寸和速度 -->
+<script src="js/vue.min.js"></script>
+<script src="My97DatePicker/WdatePicker.js" ></script>
+<script src="js/moment.min.js"></script>
+
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            name:moment().add(-6,'days').format('YYYY-MM-DD'),
+            name2:moment().add(1,'days').format('YYYY-MM-DD')
+        },
+        mounted:function(){
+        },
+        methods:{
+            picking:function () {
+                var _this = this;
+                WdatePicker({
+                    el:'name',
+                    onpicked:function (dp) {
+                        _this.name = dp.cal.getNewDateStr();
+                        _this.picking2();
+                    },
+                    maxDate:'#F{$dp.$D(\'name2\',{d:-1})}'
+                })
+            },
+            picking2:function () {
+                var _this = this;
+                var min = _this.name;
+                WdatePicker({
+                    el:'name2',
+                    onpicked:function (dp) {
+                        _this.name2 = dp.cal.getNewDateStr();
+                    },
+                    minDate:'#F{$dp.$D(\'name\',{d:+1})}',
+                    maxDate: moment().add(1,'days').format('YYYY-MM-DD')
+                })
+
+            }
+        }
+    })
+</script>
+</html>
