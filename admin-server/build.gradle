@@ -2,26 +2,26 @@ apply from: "${rootProject.projectDir}/boot-module.gradle"
 
 group 'com.lfm'
 version '1.0-SNAPSHOT'
-
 bootJar {
-    mainClassName = 'com.lfm.boot.QuickStartApplication'
+    mainClassName = 'com.lfm.monitor.server.MonitorServerApplication'
+    launchScript()
 }
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-starter-server
+    compile group: 'de.codecentric', name: 'spring-boot-admin-starter-server', version: '2.1.4'
+
     compile ('org.springframework.boot:spring-boot-starter-web'){
         exclude module: 'spring-boot-starter-tomcat'
     }
     compile  'org.springframework.boot:spring-boot-starter-undertow'
 
-    compile( project( ':swagger-starter' ) )
-//
-//    // https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-starter-client
-    compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.1.4'
-
     compile  'org.springframework.boot:spring-boot-starter-security'
     compile  'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
 }

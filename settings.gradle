@@ -7,4 +7,6 @@ include 'ers'
 include 'test'
 include 'quick-start'
 include 'swagger-starter'
+include 'monitor-server'
+include 'admin-server'
 

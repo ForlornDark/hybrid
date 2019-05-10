@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: alone
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
