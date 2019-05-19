@@ -9,4 +9,8 @@ include 'quick-start'
 include 'swagger-starter'
 include 'monitor-server'
 include 'admin-server'
+include 'server-gateway'
+include 'monitor-turbine'
+include 'monitor-hystrix-dashboard'
+include 'server-feign'
 

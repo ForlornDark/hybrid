@@ -1,0 +1,28 @@
+apply from: "${rootProject.projectDir}/boot-module.gradle"
+
+group 'com.lfm'
+version '1.0-SNAPSHOT'
+
+bootJar {
+    mainClassName = 'com.lfm.monitor.monitor.MonitorTurbineApplication'
+    launchScript()
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    
+    compile ('org.springframework.boot:spring-boot-starter-web'){
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    compile  'org.springframework.boot:spring-boot-starter-undertow'
+    compile  'org.springframework.boot:spring-boot-starter-actuator'
+//    compile  'org.springframework.boot:spring-boot-starter-security'
+    
+    compile  'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    compile  'org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard'
+    compile  'org.springframework.cloud:spring-cloud-starter-netflix-turbine'
+}
+

@@ -13,10 +13,7 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-
-    // https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-starter-server
-    compile group: 'de.codecentric', name: 'spring-boot-admin-starter-server', version: '2.1.4'
-
+    
     compile ('org.springframework.boot:spring-boot-starter-web'){
         exclude module: 'spring-boot-starter-tomcat'
     }
@@ -27,7 +24,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client
     compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
     
-
     // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
     compile group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.2'
 

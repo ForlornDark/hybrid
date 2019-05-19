@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: feign
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:5050/eureka/
+
+server:
+  port: 8080
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "hystrix.stream"
+

@@ -44,7 +44,7 @@ class SysUserController:BaseController(){
 //            return Info(false,"登录失败")
 //        if (password.length != 32)
 //            return Info(false,"登录失败")
-//        val re = service!!.login(name,password,request)
+//        val re = api!!.login(name,password,request)
 //        return if (re) Info(true,"登录成功") else Info(false,"登录失败")
 //    }
 
@@ -74,7 +74,7 @@ class SysUserController:BaseController(){
     }
 //    @GetMapping(value = "/logout")
 //    fun logout(request: HttpServletRequest):String{
-//        service!!.logout(request)
+//        api!!.logout(request)
 //        return "redirect:/login"
 //    }
     @PostMapping(value= ["/delete"])

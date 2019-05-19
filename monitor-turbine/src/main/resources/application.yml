@@ -1,0 +1,17 @@
+server:
+  port: 5051
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:5050/eureka/
+spring:
+  application:
+    name: monitor-turbine
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+turbine:
+  appConfig: quick-start,feign
+  clusterNameExpression: new String("default")

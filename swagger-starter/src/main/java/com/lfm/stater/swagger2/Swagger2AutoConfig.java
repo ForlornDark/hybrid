@@ -1,5 +1,6 @@
 package com.lfm.stater.swagger2;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -16,9 +17,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableConfigurationProperties(Swagger2Properties.class)
 @EnableSwagger2
+@Slf4j
 public class Swagger2AutoConfig {
-
-    private Logger logger = LoggerFactory.getLogger(Swagger2AutoConfig.class);
 
     private final Swagger2Properties properties;
     public Swagger2AutoConfig(Swagger2Properties properties){
@@ -29,7 +29,7 @@ public class Swagger2AutoConfig {
 
     @Bean
     public Docket createRestApi() {
-        logger.info("init swagger2...");
+        log.info("init swagger2...");
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(properties.isEnable())
                 .apiInfo(apiInfo())

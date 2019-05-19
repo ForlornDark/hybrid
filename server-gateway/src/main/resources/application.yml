@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: zuul-server
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:5050/eureka/
+server:
+  port: 6060
+zuul:
+  routes:
+    quick-start: /**
+#    quick-start:
+#      path: /**
+#      serviceId: quick-start
+#    quick-start:
+#      path: /**
+#      url: http://localhost:9090/

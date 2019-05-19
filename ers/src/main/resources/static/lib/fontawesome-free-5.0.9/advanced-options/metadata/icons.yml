@@ -8717,7 +8717,7 @@ taxi:
       - car
       - uber
       - lyft
-      - car service
+      - car api
   styles:
     - solid
   unicode: f1ba
