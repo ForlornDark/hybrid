@@ -1,5 +1,9 @@
 package com.lfm.test;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.IntStream;
+
 public class StringUtil {
 
 
@@ -95,7 +99,32 @@ public class StringUtil {
         c[j] = t;
     }
 
+//    private static void process(char[] temp, int[] f) {
+//        int n =temp.length;
+//        f[0] = f[1] = 0; //边界
+//        for(int i = 1; i < n; ++i) {
+//            int j = f[i];
+//            while(j !=0 && temp[i] != temp[j]) j = f[j]; //一旦回到1，表明窗口大小为0了，只能回到最初的字符
+//            f[i + 1] = temp[i] == temp[j] ? j + 1: 0;
+//        }
+//    }
+//
+//    private  static void findStr(String str, String find) {
+//        int n = str.length(), m = find.length();
+//        int[] f = new int[m + 1];
+//        char[] findArray = find.toCharArray();
+//        process(findArray, f); //预处理得到失配表
+//        int j = 0; //j表示当前模版串的待匹配位置
+//        char[] strArray = str.toCharArray();
+//        for(int i = 0; i < n; ++i) {
+//            while(j != 0 && strArray[i] != findArray[j]) j = f[j]; //不停的转移，直到可以匹配或者走到0
+//            if(strArray[i] == findArray[j]) j++; //如果相等，模版串中待匹配位置可以移一位了。
+//            if(j == m) System.out.println(i - m + 1);
+//        }
+//    }
+
     public static void main(String[] args){
-        System.out.println(reverseSentence("1234 56 am i"));
+//        String a ="adbafdsvssks".indexOf("dsa");
+//        findStr(a,"fds");
     }
 }
