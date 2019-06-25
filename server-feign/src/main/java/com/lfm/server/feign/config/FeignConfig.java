@@ -4,6 +4,7 @@ import com.lfm.server.feign.api.HystrixClientFallbackFactory;
 import com.lfm.server.feign.api.SysUserClientFallback;
 import feign.Feign;
 import feign.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;

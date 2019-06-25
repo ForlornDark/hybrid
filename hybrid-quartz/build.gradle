@@ -1,0 +1,25 @@
+apply from: "${rootProject.projectDir}/boot-module.gradle"
+
+group 'com.lfm'
+version '1.0-SNAPSHOT'
+
+bootJar {
+    mainClassName = 'com.lfm.boot.QuickStartApplication'
+    launchScript()
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile ('org.springframework.boot:spring-boot-starter-web'){
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    compile  'org.springframework.boot:spring-boot-starter-undertow'
+    compile  'org.springframework.boot:spring-boot-starter-quartz'
+
+    
+//    compile  'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+//    compile  'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

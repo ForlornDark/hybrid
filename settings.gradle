@@ -13,4 +13,5 @@ include 'server-gateway'
 include 'monitor-turbine'
 include 'monitor-hystrix-dashboard'
 include 'server-feign'
+include 'hybrid-quartz'
 

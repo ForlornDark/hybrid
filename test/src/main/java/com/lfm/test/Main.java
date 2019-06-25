@@ -1,28 +1,22 @@
 package com.lfm.test;
 
-import java.util.Collections;
-import java.util.LinkedList;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 
-class Main
-{
-    public static void main (String [] args)
-    {
-        System.out.println(fibonacci(7));
-        LinkedList linkedList = new LinkedList();
+class Main {
+    private String name = "dsfads";
+    public Main(){
+        System.out.println("constructor");
     }
-
-    public static int fibonacci(int n){
-        int sum;
-        if (n < 0){
-            throw new IllegalArgumentException("位数n不能小于0");
+    public static void main (String [] args) {
+        try {
+            Main main = Main.class.getDeclaredConstructor().newInstance();
+            Field[] declaredFields = Main.class.getDeclaredFields();
+            for (Field field:declaredFields){
+                System.out.println(field.getName()+":"+field.get(main));
+            }
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
         }
-        if (n == 0 ){
-           sum = 0;
-        }else if (n == 1){
-            sum = 1;
-        }else {
-            sum = fibonacci(n-1) + fibonacci(n-2);
-        }
-        return sum;
     }
 }
