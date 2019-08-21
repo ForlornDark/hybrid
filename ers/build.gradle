@@ -36,11 +36,12 @@ repositories {
     maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
     mavenCentral()
 }
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
+}
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compile ("org.springframework.boot:spring-boot-starter-web:$boot_version"){
-        exclude module: 'spring-boot-starter-tomcat'
-    }
+    compile ("org.springframework.boot:spring-boot-starter-web:$boot_version")
     compile "org.springframework.boot:spring-boot-starter-undertow:$boot_version"
     compile "org.springframework.boot:spring-boot-starter-mail:$boot_version"
     compile "org.springframework.boot:spring-boot-starter-thymeleaf:$boot_version"
