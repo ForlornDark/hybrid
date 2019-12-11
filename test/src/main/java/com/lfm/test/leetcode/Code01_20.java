@@ -107,4 +107,64 @@ public class Code01_20 {
             System.out.println(a+",");
         }
     }
+
+//
+//    给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+//
+//    如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+//
+//    您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+//
+//    示例：
+//
+//    输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
+//    输出：7 -> 0 -> 8
+//    原因：342 + 465 = 807
+//
+//    来源：力扣（LeetCode）
+//    链接：https://leetcode-cn.com/problems/add-two-numbers
+//    著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+    class ListNode {
+     int val;
+     ListNode next;
+     ListNode(int x) { val = x; }
+    }
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode listNode = new ListNode(0);
+        ListNode node = null;
+        ListNode cNode = listNode;
+        int t = 0;
+        int v1,v2;
+        boolean more = false;
+        for (; l1 != null || l2 != null || more;){
+            v1 = 0;
+            v2 = 0;
+            more = false;
+            if (l1 != null){
+                v1 = l1.val;
+                l1 = l1.next;
+            }
+
+            if (l2 != null){
+                v2 = l2.val;
+                l2 = l2.next;
+            }
+            if(l1 != null || l2 != null){
+                more = true;
+            }
+            t = t + v1 +v2;
+            if (t > 9){
+                more = true;
+            }
+            cNode.val = t % 10;
+            t = t / 10;
+            if (more){
+                node = new ListNode(0);
+                cNode.next = node;
+                cNode = cNode.next;
+            }
+        }
+        return listNode;
+    }
 }
