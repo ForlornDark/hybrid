@@ -1,10 +1,15 @@
 package com.lfm.test.cache;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.util.concurrent.RateLimiter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 public class LRUCache<K,V> {
 
@@ -59,14 +64,7 @@ public class LRUCache<K,V> {
     }
 
     public static void main(String[] args){
-        LRUCache2<Integer,String> cache = new LRUCache2<>(100);
-        for (int i =0 ;i < 500;i++){
-            int i1 = new Random().nextInt(100);
-            if (cache.get(i1) == null){
-                cache.put(i1,String.valueOf(i1));
-            }
-            log.info(i1+",cache size:"+cache.getSize());
-            log.info(cache.print());
-        }
+        RateLimiter rateLimiter = RateLimiter.create(300);
+
     }
 }
