@@ -12,6 +12,7 @@ import org.redisson.config.Config;
 import java.io.Closeable;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -72,17 +73,18 @@ public class RedissonTest {
             executor.execute(()->{
                 try{
                     while (true){
-                        RLock lock = redissonClient.getLock("product_lock_100");
+//                        RLock lock = redissonClient.getLock("product_lock_100");
                         try {
-                            lock.lock();
+//                            lock.lock();
                             RAtomicLong atomicLong = redissonClient.getAtomicLong("product_100");
                             if (atomicLong.get() > 0){
-                                atomicLong.decrementAndGet();
+                                long stock = atomicLong.decrementAndGet();
+                                log.info("stock-------------,{}",stock);
                             }else {
                                 break;
                             }
                         }catch (Exception e){
-                            lock.unlock();
+//                            lock.unlock();
                         }
 
                     }
@@ -90,6 +92,7 @@ public class RedissonTest {
                     log.error("",e);
                 }finally {
                     latch.countDown();
+                    log.info("count============,{}",latch.getCount());
                 }
             });
         }
